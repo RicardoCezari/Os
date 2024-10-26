@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* Navbar com gradiente azul */
+.navbar {
+    background: linear-gradient(90deg, #007bff, #00aaff);
+    position: fixed; /* Fixa a navbar no topo */
+    top: 0; /* Coloca no topo */
+    left: 0; /* Alinha à esquerda */
+    right: 0; /* Alinha à direita */
+    height: 50px; /* Define a altura da navbar */
+    display: flex; /* Usar flexbox para alinhamento */
+    align-items: center; /* Alinha verticalmente os itens */
+    padding: 0 10px; /* Espaçamento interno horizontal */
+    z-index: 1000; /* Certifica que a navbar fique acima de outros conteúdos */
+}
+
+.navbar-brand, .nav-link {
+    color: white !important; /* Cor do texto da navbar */
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* Efeito ao passar o mouse */
+}
+
+/* Efeito Rollover no ícone da navbar */
+.navbar-brand i {
+    transition: color 0.3s ease, transform 0.3s ease; /* Animação suave */
+}
+
+.navbar-brand:hover i {
+    color: #ffdd57; /* Cor ao passar o mouse */
+    transform: scale(1.2); /* Aumentar o tamanho do ícone */
+}
+
+/* Estilos do Formulário (para create.html) */
+.container {
+    max-width: 95%; /* Limitar a largura do formulário */
+    margin-top: 60px; /* Para não ficar atrás da navbar fixa */
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.foto-logo {
+    height: 40px;
+    padding: 1px;
+    margin-top: 13px; /* Ajuste para abaixar a logo */
+}
+
+.navbar1 {
+    max-height: 50px; /* Removido, pois agora a altura é fixa na navbar */
+}
+
+.btn.btn-success {
+    margin-top: 30px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão à direita */
+    margin-top: 80px; /* Aumenta a margem superior para afastar da navbar */
+}
+
+.btn-custom {
+    background-color: #007bff; /* Cor de fundo azul */
+    border-color: #007bff; /* Cor da borda azul */
+    color: white; /* Cor do texto */
+    padding: 4px 12px; /* Aumenta o padding */
+    font-size: 10px; /* Aumenta o tamanho da fonte */
+}
+
+.btn-custom:hover {
+    background-color: #0056b3; /* Cor ao passar o mouse */
+    border-color: #004085; /* Cor da borda ao passar o mouse */
+}
+
+.btn-custom i {
+    font-size: 20px; /* Aumenta o tamanho do ícone */
+    }
+
+    

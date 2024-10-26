@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+ /* Navbar com gradiente azul */
+ .navbar {
+    background: linear-gradient(90deg, #007bff, #00aaff);
+}
+
+.navbar-brand, .nav-link {
+    color: white !important; /* Cor do texto da navbar */
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* Efeito ao passar o mouse */
+}
+
+/* Efeito Rollover no ícone da navbar */
+.navbar-brand i {
+    transition: color 0.3s ease, transform 0.3s ease; /* Animação suave */
+}
+
+.navbar-brand:hover i {
+    color: #ffdd57; /* Cor ao passar o mouse */
+    transform: scale(1.2); /* Aumentar o tamanho do ícone */
+}
+/* Estilos do Formulário (para create.html) */
+.container {
+    max-width: 30%; /* Limitar a largura do formulário */
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.foto-logo{
+    height: 50px;
+}
