@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OS SPACE</title>
+    <title>Editar Serviço</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="imagen/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles-create.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="styles-create.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="index.html"><i class="bi bi-house"></i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
     </nav>
     <main class="container mt-5">
-        <form id="serviceForm">
+        <form id="editForm">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" class="form-control" required minlength="3">
 
@@ -45,67 +42,72 @@
             <button type="submit" class="btn btn-primary mt-3">Salvar</button>
         </form>
 
-        <div id="message" class="mt-3" style="display: none;"></div>
-        <div id="errorMessage" class="mt-3" style="display: none; color: red;"></div>
+        <div id="notification" class="mt-3" style="display: none; color: green;"></div>
+        <div id="errorNotification" class="mt-3" style="display: none; color: red;"></div>
     </main>
 
     <script>
+        const service = JSON.parse(localStorage.getItem('currentService')); // Recupera os dados do serviço
+
+        // Preencher o formulário com os dados do serviço
+        if (service) {
+            document.getElementById('nome').value = service.nome;
+            document.getElementById('telefone').value = service.telefone;
+            document.getElementById('data').value = service.data;
+            document.getElementById('servico').value = service.servico;
+            document.getElementById('endereco').value = service.endereco;
+            document.getElementById('status').value = service.status;
+        }
+
         // Máscara para o campo de telefone
         $(document).ready(function() {
             $('#telefone').mask('(00) 00000-0000');
             $('#telefone').val('(00) 00000-0000'); // Define o valor inicial com a máscara
         });
 
-        document.getElementById('serviceForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            // Obtendo os valores dos campos
             const nome = document.getElementById('nome').value;
             const telefone = $('#telefone').val().replace(/\D/g, ''); // Remove caracteres não numéricos
-            const data = document.getElementById('data').value;
-            const servico = document.getElementById('servico').value;
-            const endereco = document.getElementById('endereco').value;
-            const status = document.getElementById('status').value;
 
-            // Validações
+            // Validação do nome (mínimo 3 letras e sem números)
             const nomeValido = /^[A-Za-zÀ-ÿ\s]{3,}$/.test(nome);
-            const telefoneValido = /^\d{11}$/.test(telefone); // Considera apenas números
+            // Validação do telefone (11 dígitos numéricos)
+            const telefoneValido = /^\d{11}$/.test(telefone);
 
-            const errorMessageDiv = document.getElementById('errorMessage');
+            const errorNotification = document.getElementById('errorNotification');
             if (!nomeValido || !telefoneValido) {
-                errorMessageDiv.textContent = 'Erro: O nome deve ter pelo menos 3 letras e o telefone deve ter exatamente 11 dígitos.';
-                errorMessageDiv.style.display = 'block';
+                errorNotification.textContent = 'Erro: O nome deve ter pelo menos 3 letras e o telefone deve ter exatamente 11 dígitos.';
+                errorNotification.style.display = 'block';
                 return;
-            } else {
-                errorMessageDiv.style.display = 'none'; // Limpa a mensagem de erro
             }
 
-            // Criando um objeto para armazenar os dados
-            const newService = {
+            // Atualiza os dados do serviço
+            const updatedService = {
                 nome,
                 telefone,
-                data,
-                servico,
-                endereco,
-                status
+                data: document.getElementById('data').value,
+                servico: document.getElementById('servico').value,
+                endereco: document.getElementById('endereco').value,
+                status: document.getElementById('status').value
             };
 
-            // Obtendo os serviços existentes do localStorage
-            const existingServices = JSON.parse(localStorage.getItem('services')) || [];
-            existingServices.push(newService); // Adiciona o novo serviço
+            // Atualiza o localStorage
+            const serviceData = JSON.parse(localStorage.getItem('services')) || [];
+            const index = serviceData.findIndex(s => s.telefone === service.telefone); // Substitua isso por um método melhor de identificação se necessário
+            serviceData[index] = updatedService;
+            localStorage.setItem('services', JSON.stringify(serviceData));
 
-            // Salvando de volta no localStorage
-            localStorage.setItem('services', JSON.stringify(existingServices));
+            // Exibe a notificação
+            const notification = document.getElementById('notification');
+            notification.textContent = 'Edição realizada com sucesso!';
+            notification.style.display = 'block';
 
-            // Exibindo a mensagem de sucesso
-            const messageDiv = document.getElementById('message');
-            messageDiv.innerHTML = '<div class="alert alert-success">Cadastro realizado com sucesso!</div>';
-            messageDiv.style.display = 'block';
-
-            // Redirecionando para index.html após 2 segundos
+            // Aguarda 3 segundos e redireciona
             setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
+                window.location.href = 'index.html'; // Redireciona de volta para a tabela
+            }, 3000);
         });
     </script>
 </body>

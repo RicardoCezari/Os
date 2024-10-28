@@ -96,4 +96,6 @@ h1 {
     font-size: 20px; /* Aumenta o tamanho do ícone */
     }
 
-    
+a:hover{
+    text-decoration: none;
+}
